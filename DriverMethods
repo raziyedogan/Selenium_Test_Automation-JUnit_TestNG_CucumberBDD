@@ -1,0 +1,47 @@
+package Part_01;
+
+import com.sun.jna.platform.win32.Sspi;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class P01_DriverMethods {
+    public static void main(String[] args){
+        //Setting upChromedriver
+        WebDriverManager.chromedriver().setup();
+        WebDriver driver = new ChromeDriver();
+
+        //Go to "www.amazon.com.tr"
+        driver.get("https://www.amazon.com.tr");
+
+        //Maximize the page to the maximum size
+        driver.manage().window().maximize();
+
+        //Print the title of the page
+        System.out.println("The Title Of The Page: " + driver.getTitle());
+
+        //Print the URL of the page
+        System.out.println("The URL Of The Page: " + driver.getCurrentUrl());
+
+        //Print the source codes of the page
+        System.out.println("The Source Codes Of The Page: " + driver.getPageSource());
+
+        //Test that the source code contains the word 'Gateway'
+        String actualData = driver.getPageSource();
+        String expectedData = "Gateway";
+
+        if(actualData.contains(expectedData)){
+            System.out.println("TEST PASSED");
+        }else {
+            System.out.println("TEST FAILED");
+        }
+
+        //Print the window handle code of the page
+        System.out.println("Window Handle Code: " +driver.getWindowHandle());
+
+        // When we want to make transition between multiple windows, each window has its own handle code. We can swich between winsows using handle codes.
+
+        //close the page
+        driver.close();
+    }
+}
