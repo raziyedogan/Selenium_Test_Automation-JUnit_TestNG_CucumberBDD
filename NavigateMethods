@@ -1,0 +1,43 @@
+package Part_01;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.time.Duration;
+
+public class P02_NavigateMethods {
+    public static void main(String[] args){
+
+        //Setting upChromedriver
+        WebDriverManager.chromedriver().setup();
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+
+        //Go to "www.amazon.com.tr
+        driver.navigate().to("https://www.amazon.com.tr");
+        // 'navigate to' is slightly faster than the 'get' method
+
+        //Go to google homepage
+        driver.navigate().to("https://www.google.com");
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        //Go to the amazon page again
+        driver.navigate().back(); // forward to amazon page from google page
+
+        //go to the google page again
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.navigate().forward();
+
+        //refresh the page
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.navigate().refresh();
+
+        //close the page
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.quit(); // to close all the browsers
+        //driver.close(); to close the last browser
+
+
+    }
+}
