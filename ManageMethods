@@ -1,0 +1,53 @@
+package Part_01;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.time.Duration;
+
+public class P03_ManageMethods {
+    public static void main(String[] args){
+
+        //Setting upChromedriver
+        WebDriverManager.chromedriver().setup();
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+
+        //Go to "www.amazon.com.tr"
+        driver.get("https://www.amazon.com.tr");
+
+        //Print the page's dimensions and position
+        System.out.println("The Page's Position: " + driver.manage().window().getPosition());
+        System.out.println("The Page's Dimensions: " + driver.manage().window().getSize());
+
+        //Minimize the page
+        driver.manage().window().minimize();
+
+        //Wait 2 seconds on the icon and maximize the page.
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
+        driver.manage().window().maximize();
+
+        //Make fullscreen the page
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
+        driver.manage().window().fullscreen();
+
+        //Print the page's position and dimensions in fullscreen mode
+        System.out.println("The page's position in fullscreen mode: " + driver.manage().window().getPosition());
+        System.out.println("The page's dimension in fullscreen mode: " + driver.manage().window().getSize());
+
+        //Adjust the page's position and size as desired
+        driver.manage().window().setPosition(new Point(20,20));
+        driver.manage().window().setSize(new Dimension(800,400));
+
+        //Test that the page is set to the desired position and size
+        System.out.println("The desired position of the page: " + driver.manage().window().getPosition());
+        System.out.println("The desired dimension of the page: " + driver.manage().window().getSize());
+
+        //Close the page
+        driver.close();
+
+    }
+}
