@@ -1,0 +1,52 @@
+package Part_01;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.time.Duration;
+import java.util.List;
+
+public class P04_Locaters {
+    public static void main(String[] args){
+        //Setting upChromedriver
+        WebDriverManager.chromedriver().setup();
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+        //It waits for 15 seconds for the elements on the page to load. If they do not load within
+        // 15 seconds, it returns an error and stops the process.
+
+        //Go to "www.amazon.com.tr"
+        driver.get("https://www.amazon.com.tr");
+
+        //Hover over the object you want to locate and right-click. Click the Inspect (properties) option and the HTML code will open. Select a unique value for the relevant object. Here, we will use the id value.
+        WebElement cookies = driver.findElement(By.id("sp-cc-rejectall-link"));
+        cookies.click();
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
+
+
+        //search notebook in amazon
+        //Go to search box object to search
+        WebElement searchBox=driver.findElement(By.id("twotabsearchtextbox"));
+        searchBox.sendKeys("notebook" + Keys.ENTER); //This line of code writes “notebook” into the search bar and clicks the Enter key.
+
+        //Print the number of items with the tag “a” on the Amazon page.
+        List<WebElement> tag=driver.findElements(By.tagName("a")); //Since there are multiple tags, we created a list and used the findElements method that ends with s.
+        System.out.println("The number of items with the tag 'a' on the Amazon page: " + tag.size());
+
+        //Print the number of items with the tag “label” on the Amazon page.
+        List<WebElement> label=driver.findElements(By.tagName("label"));
+        System.out.println("The number of items with the tag 'label' on the Amazon page: " + tag.size());
+
+        //close the page
+        driver.close();
+
+
+    }
+}
