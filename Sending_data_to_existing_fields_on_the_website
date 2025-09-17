@@ -1,0 +1,43 @@
+package Part_01;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.time.Duration;
+
+public class P06_Practice02 {
+    public static void main(String[] args){
+        WebDriverManager.chromedriver().setup();
+        WebDriver driver=new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+
+        //Go to the "www.heroku.com/home" page
+        driver.get("https://www.heroku.com/home");
+
+        //Click "sign up" button
+        //Right-click on the “sign up” button on the web page and click Inspect. After the console opens, right-click on the “sign up” button again and click Inspect. The id is not present. We will find the button using the href text attribute.
+        WebElement signUp=driver.findElement(By.linkText("Sign Up"));
+        signUp.click();
+        //Alternative: driver.findElement(By.linkText("Sign up")).click();
+
+        //Locate Firstname textbox, Lastname textbox, company elements
+        WebElement firstName=driver.findElement(By.id("first_name"));
+        WebElement lastName=driver.findElement(By.id("last_name"));
+        WebElement email=driver.findElement(By.id("email"));
+        WebElement companyName=driver.findElement(By.id("company"));
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
+        firstName.sendKeys("Raziye");
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        lastName.sendKeys("Dogan");
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        email.sendKeys("raziyedoganceng0@gmail.com");
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        companyName.sendKeys("Ericsson");
+    }
+}
