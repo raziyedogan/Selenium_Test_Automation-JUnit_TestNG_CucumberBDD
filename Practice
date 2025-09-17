@@ -1,0 +1,60 @@
+package Part_01;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.awt.desktop.SystemEventListener;
+import java.time.Duration;
+
+public class P05_Practice {
+    public static void main(String[] args){
+
+        //Setting upChromedriver
+        WebDriverManager.chromedriver().setup();
+        WebDriver driver = new ChromeDriver();
+
+        //Go to the Facebook page and verify that the page title is “facebook”
+        driver.get("https://www.facebook.com");
+        if (driver.getTitle().contains("facebook")) {
+            System.out.println("TEST PASSED");
+        }else{
+            //If the page title is incorrect, print the title
+            System.out.println("TEST FAILED");
+            System.out.println("Actual Title:" +driver.getTitle());
+        }
+
+        //Verify that the page URL contains the word “facebook”; if it does not, print the “actual” URL
+        if(driver.getCurrentUrl().contains("facebook")){
+            System.out.println("TEST PASSED");
+        }else{
+            System.out.println("TEST FAILED");
+            System.out.println("Actual URL :"+driver.getCurrentUrl());
+        }
+
+        // Go to the "https://www.walmart.com/" page
+        driver.navigate().to("https://www.walmart.com/");
+
+        //Verify that the page title contains the word "Walmart.com"
+        if(driver.getTitle().contains("Walmart.com")){
+            System.out.println("TEST PASSED");
+        }else{
+            System.out.println("TEST FAILED");
+            System.out.println(driver.getCurrentUrl());
+        }
+
+        //return the facebook page
+        driver.navigate().back();
+
+        //refresh the page
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.navigate().refresh();
+
+        //maximize the page
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().window().maximize();
+
+        //close the page
+        driver.close();
+    }
+}
