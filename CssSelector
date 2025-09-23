@@ -1,0 +1,48 @@
+package Part_01;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.time.Duration;
+
+public class P08_CssSelector {
+    public static void main(String[] args){
+
+        //In CSS selectors, only id and class attributes can be located. For id, the “#” symbol is placed at the beginning. For class, the “.” symbol is placed at the beginning.
+        
+        WebDriverManager.chromedriver().setup();
+        WebDriver driver=new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+
+        driver.get("https://the-internet.herokuapp.com/add_remove_elements/");
+
+        //Test that the Delete button is visible
+        //Right-click to access the Delete button and click inspect. This time, let's try to access it from the text. Since this is text rather than an attribute, the syntax changes slightly. “//*[text()=‘Delete’]”
+
+        WebElement DeleteButton=driver.findElement(By.cssSelector(".added-manually")); //with cssSelector
+        if(DeleteButton.isDisplayed()){
+            System.out.println("TEST PASSED");
+        }else{
+            System.out.println("TEST FAILED");
+        }
+
+        //Click delete button
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        DeleteButton.click();
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        //Test that the "Add/Remove Elements" text is visible
+        if(driver.findElement(By.xpath("//*[text()='Add/Remove Elements']")).isDisplayed()){   //with xpath
+            System.out.println("TEST PASSED");
+        }else{
+            System.out.println("TEST FAILED");
+        }
+
+        driver.close();
+
+    }
+}
